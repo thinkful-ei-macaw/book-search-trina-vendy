@@ -1,6 +1,28 @@
 import React from "react";
+import Search from './components/Search';
 
 class App extends React.Component {
+
+  constructor(){
+    super();
+    const state = {
+      data: [],
+      printType:{
+        all:true,
+        'preview-available': false,
+        'Free-google-books': false
+      },
+      bookType: {
+        any: true,
+        books: false,
+        magazine: false,
+        newspaper: false
+      }
+
+    }
+  }
+
+
   render() {
     return (
       <main>
@@ -9,16 +31,7 @@ class App extends React.Component {
         </header>
 
         <section className="search-bar">
-          <form>
-            <label for="search-field">Search</label>
-            <input
-              id="search-field"
-              type="text"
-              name="search-field"
-              placeholder="book title"
-              required
-            />
-          </form>
+          <Search />
         </section>
         <section>
           <label for="book-type">Choose a Type of Book:</label>
@@ -38,7 +51,7 @@ class App extends React.Component {
           </select>
         </section>
       </main>
-    );
+    )
   }
 }
 
