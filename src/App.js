@@ -5,23 +5,57 @@ class App extends React.Component {
 
   constructor(){
     super();
-    const state = {
-      data: [],
+     this.state = {
+      title: '',
       printType:{
         all:true,
-        'preview-available': false,
-        'Free-google-books': false
+        previewAvailable: false,
+        freeGoogleBooks: false
       },
       bookType: {
         any: true,
         books: false,
         magazine: false,
         newspaper: false
-      }
+      },
+      error: null
 
     }
   }
 
+  componentDidMount() {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=intitle:${this.state.title}`;
+    const options = {
+      method: 'GET',
+      headers: {
+        // Add your key after Bearer
+        "Authorization": "Bearer AIzaSyBvV76QKWtoWpqUmAQKIAFqO1BksIB6b90",
+        "Content-Type": "application/json"
+      }
+    };
+
+    fetch(url, options)
+      .then(res => {
+        if(!res.ok) {
+          throw new Error('Something went wrong, please try again later.');
+        }
+        return res;
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          data: data,
+          error: null
+        });
+      })
+      .catch(err => {
+        this.setState({
+          error: err.message
+        });
+      });
+
+  }
+  
 
   render() {
     return (
@@ -31,7 +65,10 @@ class App extends React.Component {
         </header>
 
         <section className="search-bar">
-          <Search />
+          {this.state.title}
+          <Search updateState={(title) => {
+            this.setState({title})
+          }}/>
         </section>
         <section>
           <label for="book-type">Choose a Type of Book:</label>

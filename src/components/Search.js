@@ -4,13 +4,14 @@ import App from '../App';
 class Search extends React.Component{
 
 
-    handleSubmit = e=>{
-        e.preventDefault()
-    
-      }
+
     render(){
         return (
-            <form>
+            <form onSubmit={e=>{
+              e.preventDefault();
+              const title =e.target['search-field'].value;
+              this.props.updateState(title)
+            }}>
             <label for="search-field">Search</label>
             <input
               id="search-field"
@@ -19,7 +20,7 @@ class Search extends React.Component{
               placeholder="book title"
               required
             />
-            <button type="submit" onClick = {()=> this.handleSubmit()}>Submit</button>
+            <button type="submit">Submit</button>
           </form>
         )
     }
