@@ -10,7 +10,7 @@ class Search extends React.Component{
             <form onSubmit={e=>{
               e.preventDefault();
               const title =e.target['search-field'].value;
-              this.props.updateState(title)
+              this.props.updateTitle(title)
             }}>
             <label for="search-field">Search</label>
             <input
