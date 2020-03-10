@@ -7,17 +7,14 @@ class Search extends React.Component{
 
     render(){
         return (
-            <form onSubmit={e=>{
-              e.preventDefault();
-              const title =e.target['search-field'].value;
-              this.props.updateTitle(title)
-            }}>
-            <label for="search-field">Search</label>
-            <input
+            <form onSubmit={this.props.handleSubmit}>
+            <label htmlFor="search-field">Search</label>
+            <input onChange={this.props.handleChange}
               id="search-field"
               type="text"
               name="search-field"
               placeholder="book title"
+              value={this.value}
               required
             />
             <button type="submit">Submit</button>
